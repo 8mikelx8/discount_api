@@ -1,0 +1,18 @@
+{
+    "name": "miquel/discount_api",
+    "description": "REST API to handle discounts",
+    "type": "project",
+    "license": "OSL",
+    "autoload": {
+        "psr-4": {
+            "Miquel\\DiscountApi\\": "code/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Miquel Correa",
+            "email": "correa.miquel@gmail.com"
+        }
+    ],
+    "require": {}
+}
