@@ -14,5 +14,8 @@
             "email": "correa.miquel@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "slim/slim": "4.*",
+        "guzzlehttp/psr7": "^2"
+    }
 }
