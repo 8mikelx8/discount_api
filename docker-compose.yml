@@ -24,6 +24,18 @@ services:
     volumes:
       - .:/var/www/html
       - ./logs/php.log:/var/log/fpm-php.www.log
+  mysql:
+    container_name: discount_api_mysql
+    image: mysql
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+        MYSQL_DATABASE: MY_DATABASE
+        MYSQL_USER: MYSQL_USER
+        MYSQL_PASSWORD: MYSQL_PASSWORD
+    ports:
+        - "3306:3306"
+
 networks:
   internal:
     driver: bridge
