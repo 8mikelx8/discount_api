@@ -25,6 +25,8 @@ services:
     volumes:
       - .:/var/www/html
       - ./logs/php.log:/var/log/fpm-php.www.log
+    links:
+      - mysql
   mysql:
     container_name: discount_api_mysql
     image: mysql
@@ -41,7 +43,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 30
-
+    networks:
+      - internal
 networks:
   internal:
     driver: bridge
