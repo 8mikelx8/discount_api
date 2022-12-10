@@ -43,14 +43,14 @@ class ProductService
 
         $result = $queryBuilder->fetchAllAssociative();
         foreach ($result as $productData) {
-            $products[$productData['sku']] = new Product(
+            $products[$productData['sku']] = (new Product(
                 $productData['sku'],
                 $productData['name'],
                 $productData['category'],
                 $productData['price'],
                 $productData['category_discount'],
                 $productData['product_discount']
-            );
+            ))->toArray();
         }
         return $products;
     }

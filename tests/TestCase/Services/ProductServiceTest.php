@@ -52,8 +52,7 @@ class ProductServiceTest extends TestCase
         $productService = $this->getProductService();
         $allProducts = $productService->getAllProducts();
         foreach ($allProducts as $sku => $product) {
-            $this->assertInstanceOf(Product::class, $product);
-            $this->assertEquals($sku, $product->getSku());
+            $this->assertEquals($sku, $product['sku']);
         }
     }
 
