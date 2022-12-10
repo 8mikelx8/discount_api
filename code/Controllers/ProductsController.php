@@ -38,7 +38,7 @@ class ProductsController
         if (isset($queryParams['category'])) {
             $params['category'] = $queryParams['category'];
         }
-        if (isset($queryParams['priceLessThan']) && is_int($queryParams['priceLessThan'])) {
+        if (isset($queryParams['priceLessThan'])) {
             $params['priceLessThan'] = (int) $queryParams['priceLessThan'];
         }
         return $params;
