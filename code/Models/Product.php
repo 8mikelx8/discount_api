@@ -77,8 +77,12 @@ class Product
 
     public function getDiscountedPrice(): int
     {
-        $discount = max($this->categoryDiscount, $this->productDiscount);
-        return $this->price * ((100 - $discount) / 100);
+        return $this->price * ((100 - $this->getAppliedDiscount()) / 100);
+    }
+
+    public function getAppliedDiscount(): int
+    {
+        return max($this->categoryDiscount, $this->productDiscount) ?: 0;
     }
 
     public function getCurrency(): string

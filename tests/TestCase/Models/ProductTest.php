@@ -58,6 +58,18 @@ class ProductTest extends TestCase
         );
     }
 
+        /**
+     * @dataProvider discountsProvider
+     */
+    public function testGetAppliedDiscount($categoryDiscount, $productDiscount, $expectedDiscount): void
+    {
+        $product = new Product('00001', 'nice boots', 'boots', 100, $categoryDiscount, $productDiscount);
+        $this->assertEquals(
+            $expectedDiscount,
+            $product->getAppliedDiscount()
+        );
+    }
+
     public function testGetCurrency()
     {
         $product = new Product('00001', 'nice boots', 'boots', 89000);   
