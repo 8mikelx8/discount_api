@@ -58,6 +58,12 @@ class ProductTest extends TestCase
         );
     }
 
+    public function testGetCurrency()
+    {
+        $product = new Product('00001', 'nice boots', 'boots', 89000);   
+        $this->assertEquals('EUR', $product->getCurrency());
+    }
+
     public function discountsProvider(): array {
         return [
             "no discount applied" => [null,null,0,],

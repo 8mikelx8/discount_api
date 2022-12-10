@@ -34,6 +34,11 @@ class Product
      */
     protected ?int $productDiscount;
 
+    /**
+     * Product original currency
+     */
+    protected  string $currency = 'EUR';
+
     public function __construct(
         string $sku,
         string $name,
@@ -74,5 +79,10 @@ class Product
     {
         $discount = max($this->categoryDiscount, $this->productDiscount);
         return $this->price * ((100 - $discount) / 100);
+    }
+
+    public function getCurrency(): string
+    {
+        return $this->currency;
     }
 }
