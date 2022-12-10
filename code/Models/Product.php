@@ -27,20 +27,20 @@ class Product
     /**
      * Discount applied by the product category in %
      */
-    protected int $categoryDiscount;
+    protected ?int $categoryDiscount;
 
     /**
      * Discount applied to the individual product in %
      */
-    protected int $productDiscount;
+    protected ?int $productDiscount;
 
     public function __construct(
         string $sku,
         string $name,
         string $category,
         int $price,
-        int $categoryDiscount = 0,
-        int $productDiscount = 0
+        ?int $categoryDiscount = 0,
+        ?int $productDiscount = 0
     ) {
         $this->sku = $sku;
         $this->name = $name;
