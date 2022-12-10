@@ -58,7 +58,7 @@ class ProductTest extends TestCase
         );
     }
 
-        /**
+    /**
      * @dataProvider discountsProvider
      */
     public function testGetAppliedDiscount($categoryDiscount, $productDiscount, $expectedDiscount): void
@@ -74,6 +74,28 @@ class ProductTest extends TestCase
     {
         $product = new Product('00001', 'nice boots', 'boots', 89000);   
         $this->assertEquals('EUR', $product->getCurrency());
+    }
+
+    /**
+     * @dataProvider discountsProvider
+     */
+    public function testProductToArray($categoryDiscount, $productDiscount, $expectedDiscount)
+    {
+        $product = new Product('00001', 'nice boots', 'boots', 100, $categoryDiscount, $productDiscount);
+        $this->assertEquals(
+            [
+                'sku' => '00001',
+                'name'  => 'nice boots',
+                'category' => 'boots',
+                'price' => [
+                    'original' => 100,
+                    'final' => $product->getDiscountedPrice(),
+                    'discount_percentage' => $expectedDiscount,
+                    'currency' => 'EUR'
+                ]
+            ],
+            $product->toArray()
+        );
     }
 
     public function discountsProvider(): array {

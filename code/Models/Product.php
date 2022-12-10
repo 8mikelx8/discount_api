@@ -89,4 +89,19 @@ class Product
     {
         return $this->currency;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'sku' => $this->getSku(),
+            'name'  => $this->getName(),
+            'category' => $this->getCategory(),
+            'price' => [
+                'original' => $this->getPrice(),
+                'final' => $this->getDiscountedPrice(),
+                'discount_percentage' => $this->getAppliedDiscount(),
+                'currency' => $this->getCurrency()
+            ]
+        ];
+    }
 }
