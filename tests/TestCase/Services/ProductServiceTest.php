@@ -31,6 +31,14 @@ class ProductServiceTest extends TestCase
             ->willReturn($stubQueryBuilder);
         $stubQueryBuilder->method('leftJoin')
             ->willReturn($stubQueryBuilder);
+        $stubQueryBuilder->method('setMaxResults')
+            ->willReturn($stubQueryBuilder);
+        $stubQueryBuilder->method('setFirstResult')
+            ->willReturn($stubQueryBuilder);
+        $stubQueryBuilder->method('andWhere')
+            ->willReturn($stubQueryBuilder);
+        $stubQueryBuilder->method('setParameter')
+            ->willReturn($stubQueryBuilder);
 
         $stubConnection = $this->createStub(Connection::class);
         $stubConnection->method('createQueryBuilder')
