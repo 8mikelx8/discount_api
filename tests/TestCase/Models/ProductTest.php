@@ -45,4 +45,26 @@ class ProductTest extends TestCase
         $product = new Product('00001', 'nice boots', 'boots', $price);
         $this->assertEquals($price, $product->getPrice());
     }
+
+    /**
+     * @dataProvider dicsountsProvider
+     */
+    public function testGetDiscountedPrice($categoryDiscount, $productDiscount, $expectedDiscount): void
+    {
+        $product = new Product('00001', 'nice boots', 'boots', 100, $categoryDiscount, $productDiscount);
+        $this->assertEquals(
+            $product->getDiscountedPrice(),
+            $product->getPrice() - $expectedDiscount
+        );
+    }
+
+    public function dicsountsProvider(): array {
+        return [
+            "no discount applied" => [0,0,0],
+            "category discount only" => [10,0,10],
+            "product discount only" => [0,10,10],
+            "max discount applied being category" => [50,30,50],
+            "mx discount pplied being product" => [25,35,35]
+        ];
+    }
 }
