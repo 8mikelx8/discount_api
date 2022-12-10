@@ -17,13 +17,14 @@ class ProductService
     public function getAllProducts(): array
     {
         $products = [];
-        $result = $this->connection->fetchAllAssociative(
-            'select P.*, PD.product_discount, CD.category_discount
-            from Products as P
-            left join (select product_sku, discount_perc as product_discount from ProductDiscounts) as PD on PD.product_sku = P.sku
-            left join (select category, discount_perc as category_discount from CategoryDiscounts) as CD on CD.category = P.category
-            '
-        );
+
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder->select('P.*', 'PD.product_discount', 'CD.category_discount')
+            ->from('Products', 'P')
+            ->leftJoin('P', '(select product_sku, discount_perc as product_discount from ProductDiscounts)', 'PD', 'PD.product_sku = P.sku')
+            ->leftJoin('P', '(select category, discount_perc as category_discount from CategoryDiscounts)', 'CD', 'CD.category = P.category');
+
+        $result = $queryBuilder->fetchAllAssociative();
         foreach ($result as $productData) {
             $products[$productData['sku']] = new Product(
                 $productData['sku'],

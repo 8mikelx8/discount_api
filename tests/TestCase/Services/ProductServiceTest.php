@@ -3,6 +3,7 @@
 namespace App\Test\TestCase\Services;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Miquel\DiscountApi\Models\Product;
 use Miquel\DiscountApi\Services\ProductService;
 use PHPUnit\Framework\TestCase;
@@ -21,20 +22,28 @@ class ProductServiceTest extends TestCase
 
     public function getMockedConnection(): Connection
     {
-        // Create a stub for the SomeClass class.
-        $stubConnection = $this->createStub(Connection::class);
-        // Configure the stub.
-        $stubConnection->method('fetchAllAssociative')
+        $stubQueryBuilder = $this->createStub(QueryBuilder::class);
+        $stubQueryBuilder->method('fetchAllAssociative')
             ->willReturn($this->fetchAllProducts());
-        return $stubConnection;
+        $stubQueryBuilder->method('select')
+            ->willReturn($stubQueryBuilder);
+        $stubQueryBuilder->method('from')
+            ->willReturn($stubQueryBuilder);
+        $stubQueryBuilder->method('leftJoin')
+            ->willReturn($stubQueryBuilder);
 
+        $stubConnection = $this->createStub(Connection::class);
+        $stubConnection->method('createQueryBuilder')
+            ->willReturn($stubQueryBuilder);
+
+        return $stubConnection;
     }
 
     public function testGetAllProducts(): void
     {
         $productService = $this->getProductService();
         $allProducts = $productService->getAllProducts();
-        foreach($allProducts as $sku => $product) {
+        foreach ($allProducts as $sku => $product) {
             $this->assertInstanceOf(Product::class, $product);
             $this->assertEquals($sku, $product->getSku());
         }
