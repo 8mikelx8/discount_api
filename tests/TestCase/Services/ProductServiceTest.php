@@ -4,15 +4,9 @@ namespace App\Test\TestCase\Services;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Miquel\DiscountApi\Models\Product;
 use Miquel\DiscountApi\Services\ProductService;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test.
- *
- * @coversDefaultClass \App\Action\Customer\CustomerDeleterAction
- */
 class ProductServiceTest extends TestCase
 {
     public function getProductService(): ProductService
