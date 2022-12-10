@@ -47,7 +47,7 @@ class ProductTest extends TestCase
     }
 
     /**
-     * @dataProvider dicsountsProvider
+     * @dataProvider discountsProvider
      */
     public function testGetDiscountedPrice($categoryDiscount, $productDiscount, $expectedDiscount): void
     {
@@ -58,11 +58,11 @@ class ProductTest extends TestCase
         );
     }
 
-    public function dicsountsProvider(): array {
+    public function discountsProvider(): array {
         return [
-            "no discount applied" => [0,0,0],
-            "category discount only" => [10,0,10],
-            "product discount only" => [0,10,10],
+            "no discount applied" => [null,null,0,],
+            "category discount only" => [10,null,10],
+            "product discount only" => [null,10,10],
             "max discount applied being category" => [50,30,50],
             "mx discount pplied being product" => [25,35,35]
         ];
