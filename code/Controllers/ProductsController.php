@@ -19,6 +19,9 @@ class ProductsController
     {
         $params = $this->getParams($request);
         $products = $this->productService->getAllProducts($params['offset'],$params['category'],$params['priceLessThan']);
+        if (empty($products)) {
+            return $response->withStatus(404);
+        }
         $response->getBody()->write(json_encode($products));
         return $response
           ->withHeader('Content-Type', 'application/json');
