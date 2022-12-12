@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Discount API",
+    "description": "This is an API to retrieve a list of products with its discounts",
+    "contact": {
+      "email": "correa.miquel@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "tags": [
+    {
+      "name": "products",
+      "description": "All routes related with proructs"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "summary": "retriebves a list of products with its discounts",
+        "description": "This endpoiunt retrieves a maximum of 5 products per request",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "determines first element to be retrieved by the endpoint which allows pagination",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "filters products belonging to the provided category",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "priceLessThan",
+            "in": "query",
+            "description": "filters products with a price lower than the provided value",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Products not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "example": "000001"
+          },
+          "name": {
+            "type": "string",
+            "example": "boots"
+          },
+          "category": {
+            "type": "string",
+            "example": "boots"
+          },
+          "price": {
+            "type": "object",
+            "properties": {
+              "original": {
+                "type": "integer",
+                "format": "int32",
+                "example": 79000
+              },
+              "final": {
+                "type": "integer",
+                "format": "int32",
+                "example": 65000
+              },
+              "dicsount_percentage": {
+                "type": "integer",
+                "format": "int32",
+                "example": 30
+              },
+              "currency": {
+                "type": "string",
+                "example": "EUR"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
